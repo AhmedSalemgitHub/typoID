@@ -13,6 +13,11 @@ public class MainActivity extends AppCompatActivity {
     EditText editText;
     TextView textView;
 
+    Long timeBefore ;
+    Long timeafter ;
+
+    String textToShow = "start";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,29 +26,27 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.editText);
         textView = findViewById(R.id.textView);
 
+
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                System.out.println("beforeTextChanged CharSequence"+s);
-                System.out.println("beforeTextChanged start"+start);
-                System.out.println("beforeTextChanged count"+count);
-                System.out.println("beforeTextChanged after"+after);
+                timeBefore = System.currentTimeMillis();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                textView.setText(s);
-                System.out.println("onTextChanged CharSequence"+s);
-                System.out.println("onTextChanged start"+start);
-                System.out.println("onTextChanged before"+before);
-                System.out.println("onTextChanged count"+count);
+
+                String timeLine = "time Before = " + timeBefore + " time after = " + timeafter;
+                if (timeBefore != null && timeafter != null){
+                    textToShow = textToShow + "\n"+ s + "\ndif is " + (timeBefore-timeafter);
+                }
+                textView.setText(textToShow);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                timeafter = System.currentTimeMillis();
             }
         });
-
     }
 }
